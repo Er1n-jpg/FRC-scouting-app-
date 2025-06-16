@@ -32,7 +32,7 @@ public class team extends alliance{
     }
 
 
-        public team(String line) {
+        public team(String line) { // Special team constructor with a crap ton of error checking to parse the txt line
         if ( line.trim().isEmpty()) {
             throw new IllegalArgumentException("Line cannot be null or empty");
         }

@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
-public class data extends JFrame implements ActionListener {
+public class data extends JFrame {
     
     public data() {
         JFrame newFrame = new JFrame();
@@ -14,14 +14,12 @@ public class data extends JFrame implements ActionListener {
         Dataholder holder = new Dataholder();
         String[] columnNames = {"Team Number", "Match Number", "l1 coral", "l2 coral", 
                                "l3 coral", "l4 coral", "Missed Coral","barge", "processor", "Deep Climb", 
-                               "Shallow Climb", "Park", "Disabled", "Comments"};
+                               "Shallow Climb", "Park", "Disabled", "Comments"}; // Array of column names for the sheet
       try (BufferedReader br = new BufferedReader(new FileReader("src/Scouting.txt"))) {
-            String line;
+            String line; // File io folder for scouting.txt -> read and then throw into dataholder
             while ((line = br.readLine()) != null && !line.trim().isEmpty()) {
-                System.out.println("Read line: " + line); // Debug output
                 team storedTeam = new team(line);
                 holder.addTeam(storedTeam);
-                System.out.println("Added team: " + storedTeam.getTeamNum()); // Debug
             }
         } catch (IOException e) {
             System.out.println("File reading error: " + e.getMessage());
@@ -30,12 +28,12 @@ public class data extends JFrame implements ActionListener {
         }
         team storedTeam = null;
         try {
-            FileReader fr = new FileReader("src/Scouting.txt");
-            BufferedReader br = new BufferedReader(fr);
+            FileReader fr = new FileReader("src/Scouting.txt"); // Read Scouting.txt file
+            BufferedReader br = new BufferedReader(fr); 
             String line = br.readLine();
             while (line != null) {
-                storedTeam = new team(line);
-                holder.addTeam(storedTeam);
+                storedTeam = new team(line); // Uses special team constructor to parse the line
+                holder.addTeam(storedTeam); 
                 line = br.readLine();
             }
         } catch (IOException e) {
@@ -50,7 +48,8 @@ public class data extends JFrame implements ActionListener {
         // Add to frame using BorderLayout
         newFrame.add(scrollPane, BorderLayout.CENTER);
         
-        // Add data from holder
+        // Add data from holder to new Obkject array (It won't take arrayList so its the quickets debug :cry:);
+        // Gets each individual component
          for (int i = 0; i < holder.getTeamCount(); i++) {
             team currentTeam = holder.getTeam(i);
             model.addRow(new Object[]{
@@ -75,12 +74,6 @@ public class data extends JFrame implements ActionListener {
     
 
 }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Implementation needed
-    }
-
 
 
 } 

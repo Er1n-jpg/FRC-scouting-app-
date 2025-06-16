@@ -3,7 +3,8 @@ import java.util.ArrayList;
 public class Dataholder {
     String strings;
     private ArrayList<team> ScoutedTeams = new ArrayList<>();
-
+    //Arraylist alternate class because it needed to be use throughout multiple classes (data + scoutscreen);
+    //Used to hold arrayLists with a few extra methods such as obtainString
     public void addTeam(team teams){
         ScoutedTeams.add(teams);
     }

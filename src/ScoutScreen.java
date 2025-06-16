@@ -38,7 +38,7 @@ public ScoutScreen(){
     coral1.setBounds(50,250,90,90);
     coral1.setVisible(true);
     coral1.setOpaque(false); // making the button clear
-    coral1.setContentAreaFilled(false); // nothing fillinf the button area 
+    coral1.setContentAreaFilled(false); // nothing filling the button area 
     coral1.setBorderPainted(false); // erases the border of the button
     coral1.addActionListener(this); // Adds action listener
     coral1.addMouseListener(this); // looks for your mouse -> float over commands -> potential implementation
@@ -189,9 +189,9 @@ public ScoutScreen(){
     allianceR.addActionListener(this);
     allianceR.addMouseListener(this);
 
-    backgroundPanel.add(allianceR);
+    backgroundPanel.add(allianceR); 
 
-    back = new JButton();
+    back = new JButton(); // Button to go back (which is really just the first symbol)
     back.setBounds(1275,30,150,100);
     back.setVisible(true);
     back.setOpaque(false);
@@ -201,6 +201,8 @@ public ScoutScreen(){
     back.addMouseListener(this);
 
     backgroundPanel.add(back);
+
+    // Make a clear JTextField for team number and match number + clear JTextArea for comments
 
     teamNump = new JTextField(8); // JtextField for Team number
     teamNump.setVisible(true);
@@ -249,8 +251,7 @@ public ScoutScreen(){
  public void actionPerformed(ActionEvent e) {
     // TODO Auto-generated method stub
     if (e.getSource() == coral1){
-        scoutingrn.coral(1);
-        System.out.println(scoutingrn.getCoral(1)); //test, erase later;;;
+        scoutingrn.coral(1); // Goes back to switch/case and selects the coral level
     } else if (e.getSource() == coral2){
         scoutingrn.coral(2);
         System.out.println("output!");
@@ -294,9 +295,9 @@ public ScoutScreen(){
         scoutingrn.setAlliance("blue");
     }
 
-    if (e.getSource() == back){
-        new Scout();
-        dispose();
+    if (e.getSource() == back){ // When back button is pressed -> save all the info collected into a txt file called Scouting.txt
+        new Scout(); // Deploy a new title Screen 
+        dispose(); // Dispose of Scout Screen
         try {
         FileWriter fw = new FileWriter("src/Scouting.txt", true);
         PrintWriter pw = new PrintWriter(fw);
@@ -312,7 +313,7 @@ public ScoutScreen(){
         matchNum.setEditable(false);
         matchNum.setCaretPosition(0);
         matchNum.getCaret().setVisible(false); // locking the JTextfield & making the caret not visible
-        scoutingrn.setQualNum(matchNum.getText());
+        scoutingrn.setQualNum(matchNum.getText()); //set Qual number variable to the text entered in Jtextfield
         
     } else if (e.getSource() == teamNump){
         teamNump.setEditable(false);
@@ -326,15 +327,15 @@ public ScoutScreen(){
  }
 
  @Override
- public void keyPressed(KeyEvent e){
+ public void keyPressed(KeyEvent e){// Method to listen for if the enter key is pressed 
  if (e.getKeyCode() == KeyEvent.VK_ENTER) {    
     String text = comments.getText();  
             // Prevent adding new line if you want single-line behavior
          if (!e.isShiftDown()) {
                 e.consume();
-            comments.setEditable(false);
-            comments.setCaretPosition(0);
-            comments.getCaret().setVisible(false);
+            comments.setEditable(false); // JtextArea is no longer editable
+            comments.setCaretPosition(0);// sets the caret position to 0
+            comments.getCaret().setVisible(false); // Changes visibikity of the caret to false
          } else {
       
        }
@@ -348,12 +349,12 @@ public ScoutScreen(){
 
  @Override
  public void keyTyped(KeyEvent e) {
-
+    // Have to add
     }
  
 
     
- class BackgroundPanel extends JPanel {
+ class BackgroundPanel extends JPanel { // Method to create a background panel with an image
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -368,7 +369,7 @@ public ScoutScreen(){
         
     }
  
-
+// Was going to add a mouse listener feature but ran out of time :(
 
  @Override
  public void mouseClicked(MouseEvent e) {

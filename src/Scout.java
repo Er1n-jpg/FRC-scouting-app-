@@ -27,12 +27,12 @@ public Scout(){
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLayout(null);
 
-    backgroundPanel = new BackgroundPanel();
+    backgroundPanel = new BackgroundPanel(); // Declaing and setting the bounds for the background panel
     backgroundPanel.setBounds(0, 0, 1500, 900);
     backgroundPanel.setLayout(null);
     setContentPane(backgroundPanel);
 
-    start = new JButton();
+    start = new JButton(); // Clear button to start program -> goes to scoutScreen
     start.setBounds(240,430,375,225);
     start.setVisible(true);
     start.setOpaque(false);
@@ -40,7 +40,7 @@ public Scout(){
     start.setBorderPainted(false);
     start.addActionListener(this);
 
-    data = new JButton();
+    data = new JButton(); //  Clear button to go to data screen -> goes to data
     data.setBounds(870,430,375,225);
     data.setVisible(true);
     data.setOpaque(false);
@@ -61,13 +61,13 @@ public Scout(){
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == start) {
-            new ScoutScreen();
+            new ScoutScreen(); // Makes a new ScoutScreen and disposes of scout
             dispose();
         }
 
      
         if (e.getSource() == data) {
-            new data();
+            new data(); // Makes a new data screen and disposes of scout
             dispose();
 
         }
@@ -82,7 +82,7 @@ public Scout(){
 
 }
 
- class BackgroundPanel extends JPanel {
+ class BackgroundPanel extends JPanel { // Method to create a background panel with an image
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
