@@ -13,22 +13,34 @@ public class data extends JFrame implements ActionListener {
         
         Dataholder holder = new Dataholder();
         String[] columnNames = {"Team Number", "Match Number", "l1 coral", "l2 coral", 
-                               "l3 coral", "l4 coral", "Missed Coral", "Deep Climb", 
+                               "l3 coral", "l4 coral", "Missed Coral","barge", "processor", "Deep Climb", 
                                "Shallow Climb", "Park", "Disabled", "Comments"};
+      try (BufferedReader br = new BufferedReader(new FileReader("src/Scouting.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null && !line.trim().isEmpty()) {
+                System.out.println("Read line: " + line); // Debug output
+                team storedTeam = new team(line);
+                holder.addTeam(storedTeam);
+                System.out.println("Added team: " + storedTeam.getTeamNum()); // Debug
+            }
+        } catch (IOException e) {
+            System.out.println("File reading error: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error reading file", "Error", JOptionPane.ERROR_MESSAGE);
+      
+        }
         team storedTeam = null;
         try {
             FileReader fr = new FileReader("src/Scouting.txt");
             BufferedReader br = new BufferedReader(fr);
             String line = br.readLine();
-            while (line != null && line != " ") {
+            while (line != null) {
                 storedTeam = new team(line);
                 holder.addTeam(storedTeam);
                 line = br.readLine();
             }
         } catch (IOException e) {
             System.out.println("File reading error");
-        }
-        
+        }    
 
         // Create model with correct columns
         DefaultTableModel model = new DefaultTableModel(columnNames, 20);
@@ -39,33 +51,36 @@ public class data extends JFrame implements ActionListener {
         newFrame.add(scrollPane, BorderLayout.CENTER);
         
         // Add data from holder
-        for (int i = 0; i < holder.getTeamCount(); i++) {
-            team currentTeam = storedTeam;
+         for (int i = 0; i < holder.getTeamCount(); i++) {
+            team currentTeam = holder.getTeam(i);
             model.addRow(new Object[]{
-                currentTeam.getTeamNum(),
-                currentTeam.getQualNum(),
+                String.valueOf(currentTeam.getTeamNum()),
+                String.valueOf(currentTeam.getQualNum()),
                 currentTeam.getCoral(1),
                 currentTeam.getCoral(2),
                 currentTeam.getCoral(3),
                 currentTeam.getCoral(4),
                 currentTeam.getCoral(5),
+                currentTeam.getProcessorAlgae(),
+                currentTeam.getBargeAlgae(),
                 currentTeam.getDeepClimb(),
                 currentTeam.getShallowClimb(),
                 currentTeam.getpark(),
                 currentTeam.getDisabled(),
                 currentTeam.getComments()
             });
-        }
+        } 
         
         newFrame.setVisible(true);
-    }
+    
+
+}
 
     @Override
     public void actionPerformed(ActionEvent e) {
         // Implementation needed
     }
-    
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new data());
-    }
-}
+
+
+
+} 

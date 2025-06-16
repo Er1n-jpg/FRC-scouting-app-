@@ -31,23 +31,58 @@ public class team extends alliance{
         teamName = tn;
     }
 
-     public team (String line){
-        String[] seperateSection = line.split(" ,");
-        teamName = seperateSection[0];
-        qualNum = seperateSection[1];
-        l1coral = Integer.parseInt(seperateSection [2]);
-        l2coral = Integer.parseInt(seperateSection[3]);
-        l3coral = Integer.parseInt(seperateSection[4]);
-        l4coral = Integer.parseInt(seperateSection[5]);
-        missedCoral = Integer.parseInt(seperateSection[6]); 
-        bargeAlgae = Integer.parseInt(seperateSection[7]);
-        processorAlgae = Integer.parseInt(seperateSection[8]);
-        deepClimb = Boolean.parseBoolean(seperateSection[9]);
-        shallowClimb = Boolean.parseBoolean(seperateSection[10]);
-        park = Boolean.parseBoolean(seperateSection[11]);
-        alliance = seperateSection[12];
-        comments = seperateSection[13];
-    } 
+
+        public team(String line) {
+        if ( line.trim().isEmpty()) {
+            throw new IllegalArgumentException("Line cannot be null or empty");
+        }
+
+        System.out.println("Processing line: " + line); // Debug output
+        
+        String[] separateSection = line.split(",");
+        
+        // Parse with error handling
+        try {
+            teamName = separateSection[0];
+            qualNum = separateSection[1];
+            l1coral = parseIntSafe(separateSection[2]);
+            l2coral = parseIntSafe(separateSection[3]);
+            l3coral = parseIntSafe(separateSection[4]);
+            l4coral = parseIntSafe(separateSection[5]);
+            missedCoral = parseIntSafe(separateSection[6]); 
+            bargeAlgae = parseIntSafe(separateSection[7]);
+            processorAlgae = parseIntSafe(separateSection[8]);
+            deepClimb = parseBooleanSafe(separateSection[9]);
+            shallowClimb = parseBooleanSafe(separateSection[10]);
+            park = parseBooleanSafe(separateSection[11]);
+            alliance = separateSection[12].trim();
+            comments = separateSection[13].trim();
+        
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error parsing line: " + line, e);
+        }
+    }
+
+    // ... (getter methods) ...
+
+    private int parseIntSafe(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(value.trim());
+        } catch (NumberFormatException e) {
+            System.err.println("Warning: Invalid integer value '" + value + "'. Using 0 as default.");
+            return 0;
+        }
+    }
+
+    private boolean parseBooleanSafe(String value) {
+        if (value == null) return false;
+        value = value.trim().toLowerCase();
+        return value.equals("true") || value.equals("1") || value.equals("yes") || value.equals("y");
+    }
+
 
     public String getTeamNum(){
         return teamNum;
@@ -74,6 +109,14 @@ public class team extends alliance{
 
     public boolean getDisabled(){
         return disabled;
+    }
+
+    public int getProcessorAlgae(){
+        return processorAlgae;
+    }
+
+    public int getBargeAlgae(){
+        return bargeAlgae;
     }
 
 
