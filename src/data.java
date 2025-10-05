@@ -14,9 +14,9 @@ public class data extends JFrame {
         Dataholder holder = new Dataholder();
         String[] columnNames = {"Team Number", "Match Number", "l1 coral", "l2 coral", 
                                "l3 coral", "l4 coral", "Missed Coral","barge", "processor", "Deep Climb", 
-                               "Shallow Climb", "Park", "Disabled", "Comments"}; // Array of column names for the sheet
+                               "Shallow Climb", "Park", "Disabled", "Comments"}; 
       try (BufferedReader br = new BufferedReader(new FileReader("src/Scouting.txt"))) {
-            String line; // File io folder for scouting.txt -> read and then throw into dataholder
+            String line;
             while ((line = br.readLine()) != null && !line.trim().isEmpty()) {
                 team storedTeam = new team(line);
                 holder.addTeam(storedTeam);
@@ -28,11 +28,11 @@ public class data extends JFrame {
         }
         team storedTeam = null;
         try {
-            FileReader fr = new FileReader("src/Scouting.txt"); // Read Scouting.txt file
+            FileReader fr = new FileReader("src/Scouting.txt"); 
             BufferedReader br = new BufferedReader(fr); 
             String line = br.readLine();
             while (line != null) {
-                storedTeam = new team(line); // Uses special team constructor to parse the line
+                storedTeam = new team(line);
                 holder.addTeam(storedTeam); 
                 line = br.readLine();
             }
@@ -40,16 +40,13 @@ public class data extends JFrame {
             System.out.println("File reading error");
         }    
 
-        // Create model with correct columns
         DefaultTableModel model = new DefaultTableModel(columnNames, 20);
         JTable table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
         
-        // Add to frame using BorderLayout
         newFrame.add(scrollPane, BorderLayout.CENTER);
         
-        // Add data from holder to new Obkject array (It won't take arrayList so its the quickets debug :cry:);
-        // Gets each individual component
+
          for (int i = 0; i < holder.getTeamCount(); i++) {
             team currentTeam = holder.getTeam(i);
             model.addRow(new Object[]{
