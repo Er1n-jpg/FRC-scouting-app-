@@ -86,7 +86,7 @@ public Scout(){
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Image background = new ImageIcon("src/title.png").getImage();
+        Image background = new ImageIcon("title.png").getImage();
         g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
     }
 }

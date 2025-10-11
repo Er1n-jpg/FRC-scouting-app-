@@ -339,7 +339,7 @@ public class ScoutScreen extends JFrame implements ActionListener, KeyListener, 
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            Image background = new ImageIcon("Src/Scouter.png")
+            Image background = new ImageIcon("Scouter.png")
                     .getImage();
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
         }
